@@ -1,22 +1,44 @@
 package com.example.cardsdemo.model;
 
-import jakarta.persistence.*;
+
 import lombok.*;
 
+/**
+ * Класс описывает сущность "Банковская карта"
+ */
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@MappedSuperclass
-public abstract class Card {
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "default_generator")
-    private Long id;
+public abstract class BankCard {
 
-    @Column(name = "balance")
     private Double balance;
 
-    public abstract void addMoney();
+    public BankCard() {
+        this.balance = 0d;
+    }
+
+    /**
+     * Пополнить баланс
+     * @param amount - количество вносимых на счет денежных средств
+     */
+    public abstract void addMoney(Double amount);
+
+    /**
+     * Оплатить покупку и списать денежные средства
+     * @param amount - количество списываемых со счета денежных средств
+     * @return - результат выполнения операции
+     */
+    public abstract Boolean pay(Double amount);
+
+    /**
+     * Получить информацию о балансе
+     * @return - текущий баланс
+     */
+    public abstract Double balanceInfo();
+
+    /**
+     * Получить информацию о доступных средствах
+     * @return - доступные средства
+     */
+    public abstract String availableMoneyInfo();
+
 }
